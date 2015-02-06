@@ -26,10 +26,12 @@ exports.loginHandler = function (req, res) {
     //Check for errors
     var errors = req.validationErrors();
     if (Boolean(errors)) {
-        res.render('index', {error: errors.reduce(function (pre, curr) {
-            pre.push(curr.msg);
-            return pre;
-        }, [])});
+        res.render('index', {
+            error: errors.reduce(function (pre, curr) {
+                pre.push(curr.msg);
+                return pre;
+            }, [])
+        });
         return;
     }
 
@@ -44,6 +46,14 @@ exports.loginHandler = function (req, res) {
         })
         .on(EventName.NOT_FOUND, function () {
             res.render('index', {error: ["Invalid Username or Password!"]});
+        });
+};
+
+exports.getUserInfo = function (req, res) {
+    UserService.authenticate(req.param("username"), req.param("password"))
+        .on(EventName.DONE, function (user) {
+            res.write(user);
+            res.end();
         });
 };
 

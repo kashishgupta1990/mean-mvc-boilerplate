@@ -8,8 +8,8 @@ var express = require('express'),
     connectFormidable = require('./custom_modules/connect-formidable'),
     Util = require("./src/Utils"),
     viewEngine = require("ejs-locals"),
-    socket = require('socket.io');
-
+    socket = require('socket.io'),
+    swagger = require('./custom_modules/swagger');
 
 // Use the BearerStrategy with Passport.
 passport.use(new BearerStrategy(Util.verifyBearerToken));
@@ -30,6 +30,9 @@ global.noop = function () {
 
 //Create Express App
 var app = express();
+
+//Binding Swagger
+var route = swagger(app);
 
 //set the base dir of project in global, This is done to maintain the correct base in case of forked processes.
 global.__appBaseDir = __dirname;

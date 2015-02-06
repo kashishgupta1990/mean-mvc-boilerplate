@@ -1,0 +1,9 @@
+{
+    "name": "SwaggerUrl",
+    "version": "0.1.1",
+    "description": "Automaticaly generats documentations for your urls",
+    "main": "./main.js",
+    "dependencies": {
+        "swagger-node-express": "^2.1.3"
+    }
+}
